@@ -1,7 +1,9 @@
 # -*- coding:utf-8 -*-
 import openpyxl as xl
 
-
+#BookFill(copy,word)
+#@param copy 问卷份数
+#@param word 空白格所用标识，默认为字符'n'.
 class BookFill:
     def __init__(self, copy,word = 'n'):
         # 确定表格映射关系
@@ -113,6 +115,7 @@ class BookFill:
             print('程序将在' + i + '秒后自动关闭')
 
 
+#程序入口
 if __name__ == '__main__':
     c = eval(input("请输入问卷份数:"))
     for k in range(c):
