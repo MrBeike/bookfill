@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
 import openpyxl as xl
 
-#BookFill(copy,word)
-#@param copy 问卷份数
-#@param word 空白格所用标识，默认为字符'n'.
+
+# BookFill(copy,word)
+# @param copy 问卷份数
+# @param word 空白格所用标识，默认为字符'n'.
 class BookFill:
-    def __init__(self, copy,word = 'n'):
+    def __init__(self, copy, word='n'):
         # 确定表格映射关系
         # 1.金融产品表（答案从第7位开始，注意第9位为空时，使用N？）
         infoRelation = [[], [], [], [], [], [17, 18]]
@@ -111,11 +112,10 @@ class BookFill:
         print('数据读取写入完成:', self.copy + 1, sheet)
 
     def screenpause(self):
-        for i in range(1000, 0):
-            print('程序将在' + i + '秒后自动关闭')
+        s = input("数据读写完成，请关闭窗口")
 
 
-#程序入口
+# 程序入口
 if __name__ == '__main__':
     c = eval(input("请输入问卷份数:"))
     for k in range(c):
@@ -127,3 +127,4 @@ if __name__ == '__main__':
             for i in range(0, 4):
                 positions = bookfill.position(answer[i], bookfill.relation[i])
                 bookfill.fill(sheets[i], positions)
+    bookfill.screenpause()
