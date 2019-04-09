@@ -1,4 +1,6 @@
 # -*- coding:utf-8 -*-
+#for Mrs.jiang
+
 import openpyxl as xl
 import numpy as np
 import pandas as pd
@@ -9,6 +11,7 @@ class Book:
         self.filenames = self.readIni()
         # 初始化空DataFrame用于后期汇总（有没有更简单的办法？）
         series = np.zeros((2, 65))
+        #L N 分别表示2018年数据分子、分母。
         self.dataSum = pd.DataFrame(series, index=["L", "N"], columns=range(5, 70))
         self.datacheck = pd.DataFrame(series, index=["L", "N"], columns=range(5, 70))
 
