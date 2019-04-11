@@ -128,15 +128,11 @@ class Book:
             book, sheet = self.openBook(filename)
             dataSet = self.readData(sheet)
             dataFrame = pd.DataFrame(dataSet, index=["L", "N"])
-            print(dataFrame)
             self.dataSum += dataFrame
-            print(self.dataSum)
         sumBook, sumSheet = self.openBook(filenames[-2])
         sumDataSet = self.readData(sumSheet)
         sumDataFram = pd.DataFrame(sumDataSet, index=["L", "N"])
-        print(sumDataFram)
         blankDataFram = sumDataFram - self.dataSum
-        print(blankDataFram)
         blankBook, blankSheet = self.openBook(filenames[-1])
         self.bookfill(blankSheet, blankDataFram)
         blankBook.save(filenames[-1])
