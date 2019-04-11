@@ -122,7 +122,7 @@ class Book:
         return
 
     # Case3
-    # Specify for Mrs.jiang.Thought this project is for her.
+    # Specify for Mrs.jiang.Although this project is for her —.—
     def bookJiang(self, filenames):
         for filename in filenames[:-2]:
             book, sheet = self.openBook(filename)
