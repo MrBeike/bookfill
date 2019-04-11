@@ -1,5 +1,5 @@
 # -*- coding:utf-8 -*-
-#for Mrs.jiang
+# for Mrs.jiang
 
 import openpyxl as xl
 import numpy as np
@@ -11,7 +11,7 @@ class Book:
         self.filenames = self.readIni()
         # 初始化空DataFrame用于后期汇总（有没有更简单的办法？）
         series = np.zeros((2, 65))
-        #L N 分别表示2018年数据分子、分母。
+        # L N 分别表示2018年数据分子、分母。
         self.dataSum = pd.DataFrame(series, index=["L", "N"], columns=range(5, 70))
         self.datacheck = pd.DataFrame(series, index=["L", "N"], columns=range(5, 70))
 
@@ -19,7 +19,7 @@ class Book:
     # filenames:[filename1,filename2...] type:list
     def readIni(self):
         filenames = []
-        file = open("ini.txt", "r")
+        file = open("ini.txt", "r", encoding='UTF-8')
         lines = file.readlines()
         # 获取每一行的文件名，设定最后一行为汇总表格
         for line in lines:
@@ -83,7 +83,6 @@ class Book:
         else:
             print("数据完整性校验通过")
 
-
     # Case 1
     # 汇总所有分表的数据
     # data:pd.DataFrame({5:XX,6:xx,....})  type:pd.DataFrame.object
@@ -122,6 +121,28 @@ class Book:
         print("表格修改完成，将进行数据完整性检查")
         return
 
+    # Case3
+    # Specify for Mrs.jiang.Thought this project is for her.
+    def bookJiang(self, filenames):
+        for filename in filenames[:-2]:
+            book, sheet = self.openBook(filename)
+            dataSet = self.readData(sheet)
+            dataFrame = pd.DataFrame(dataSet, index=["L", "N"])
+            print(dataFrame)
+            self.dataSum += dataFrame
+            print(self.dataSum)
+        sumBook, sumSheet = self.openBook(filenames[-2])
+        sumDataSet = self.readData(sumSheet)
+        sumDataFram = pd.DataFrame(sumDataSet, index=["L", "N"])
+        print(sumDataFram)
+        blankDataFram = sumDataFram - self.dataSum
+        print(blankDataFram)
+        blankBook, blankSheet = self.openBook(filenames[-1])
+        self.bookfill(blankSheet, blankDataFram)
+        blankBook.save(filenames[-1])
+        print("表格修改完成,请查看")
+        return
+
 
 if __name__ == '__main__':
     print("-----------------------------------------------------------------------------")
@@ -129,6 +150,7 @@ if __name__ == '__main__':
     print("1.汇总分地区表")
     print("2.修改分地区表")
     print("3.汇总校验")
+    print("4.蒋老师定制")
     book = Book()
     c = eval(input("请选择操作项:"))
     if c == 1:
@@ -139,5 +161,7 @@ if __name__ == '__main__':
         book.dataCheck(book.filenames)
     elif c == 3:
         book.dataCheck(book.filenames)
+    elif c == 4:
+        book.bookJiang(book.filenames)
     else:
         print("嘿，大兄弟。你这干啥呢？")
